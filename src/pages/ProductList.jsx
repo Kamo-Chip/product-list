@@ -6,11 +6,29 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const ProductList = ({ products, fetchProducts }) => {
+const ProductList = () => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const navigate = useNavigate();
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("https://productlist-jr.herokuapp.com/index.php", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      const productsFromCall = await response.json();
+
+      setProducts(productsFromCall);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   /**
    * Deletes a specified product from the database
@@ -30,7 +48,7 @@ const ProductList = ({ products, fetchProducts }) => {
   /**
    * Deletes all the products that are selected to be deleted
    */
-  const deleteSelectedProducts = () => {
+  const deleteSelectedProducts = async () => {
     productsToDelete.forEach((product) => {
       deleteProduct(product);
     });
@@ -40,9 +58,8 @@ const ProductList = ({ products, fetchProducts }) => {
      * Waits 0.1 seconds before refreshing to enable the request to the php api to run to completion
      * Async function is not used here as it requires an unnecessary overhead
      */
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 0.5* 1000);
+    await fetchProducts();
+    // console.log(productsToDelete)
   };
 
   // Fetches products on the first render of the page
