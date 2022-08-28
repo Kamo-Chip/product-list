@@ -9,8 +9,26 @@ import { useNavigate } from "react-router-dom";
 const ProductList = ({ products, fetchProducts }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
+  const [p, setP] = useState([]);
 
   const navigate = useNavigate();
+
+  const getProducts = async () => {
+    try {
+      const response = await fetch(
+        "https://productlist-jr.herokuapp.com/index.php",
+        {
+          method: "GET",
+        }
+      );
+
+      const productsFromCall = await response.json();
+      setP(productsFromCall);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   /**
    * Deletes a specified product from the database
    */
@@ -30,6 +48,22 @@ const ProductList = ({ products, fetchProducts }) => {
    * Deletes all the products that are selected to be deleted
    */
   const deleteSelectedProducts = async () => {
+    let updatedList = [];
+
+    let indices = [];
+
+    productsToDelete.forEach((product) => {
+      indices.push(p.indexOf(product));
+    });
+
+    p.forEach((product, index) => {
+      if (!indices.includes(index)) {
+        updatedList.push(product);
+      }
+    });
+
+    setP(updatedList);
+
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
@@ -39,6 +73,7 @@ const ProductList = ({ products, fetchProducts }) => {
   // Fetches products on the first render of the page
   useEffect(() => {
     fetchProducts();
+    getProducts();
   }, []);
 
   return (
@@ -53,7 +88,7 @@ const ProductList = ({ products, fetchProducts }) => {
         </div>
       </div>
       <main>
-        {products.map((product) => (
+        {p.map((product) => (
           <Product
             key={product.sku}
             productDetails={product}
