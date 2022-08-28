@@ -42,7 +42,7 @@ const ProductList = ({ products, fetchProducts }) => {
      */
     setTimeout(() => {
       window.location.reload(false);
-    }, 0.1* 1000);
+    }, 0.5* 1000);
   };
 
   // Fetches products on the first render of the page
