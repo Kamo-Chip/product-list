@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const local = "http://localhost/api/index.php";
-const on = "https://junior-dev-product-list.000webhostapp.com/index.php";
 const ProductList = ({ products, fetchProducts }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
@@ -19,12 +17,10 @@ const ProductList = ({ products, fetchProducts }) => {
    */
   const deleteProduct = async (element) => {
     try {
-      await fetch(on, {
+      await fetch("https://productlist-jr.herokuapp.com/index.php", {
         method: "DELETE",
         body: JSON.stringify(element),
-        headers: {
-          "Content-type": "application/json",
-        },
+        headers: { "Content-type": "application/json;charset=UTF-8" },
       });
     } catch (err) {
       console.error(err);
@@ -44,9 +40,9 @@ const ProductList = ({ products, fetchProducts }) => {
      * Waits 0.1 seconds before refreshing to enable the request to the php api to run to completion
      * Async function is not used here as it requires an unnecessary overhead
      */
-    // setTimeout(() => {
-    //   window.location.reload(false);
-    // }, 1* 1000);
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 0.1* 1000);
   };
 
   // Fetches products on the first render of the page

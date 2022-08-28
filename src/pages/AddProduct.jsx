@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ExtendedForm from "../components/ExtendedForms/ExtendedForm";
-import axios from "axios";
 
 /**
  * Handles the logic of adding a product
  */
-
-const local = "http://localhost/api/index.php";
-const on = "https://junior-dev-product-list.000webhostapp.com/index.php";
 const AddProduct = ({ products }) => {
   //Stores the product's details
   const [productDetails, setProductDetails] = useState({
@@ -93,12 +89,11 @@ const AddProduct = ({ products }) => {
   //Adds the product to the database
   const submitProduct = async () => {
     try {
-      await fetch(on, {
-        method: "POST",
+      await fetch("https://productlist-jr.herokuapp.com/index.php", {
+        method: "post",
         body: JSON.stringify(productDetails),
-        headers: {
-          "Content-type": "application/json",
-        },
+        mode: "no-cors",
+        headers: { "Content-type": "application/json;charset=UTF-8" },
       });
       navigate("/");
     } catch (err) {

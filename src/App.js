@@ -4,7 +4,6 @@ import AddProduct from "./pages/AddProduct";
 import Footer from "./components/Footer";
 import "./styles/styles.css";
 import { useEffect } from "react";
-import axios from "axios";
 import { useState } from "react";
 
 /**
@@ -12,8 +11,6 @@ import { useState } from "react";
  * Handles the logic of routing to the individual pages
  */
 
-const local = "http://localhost/api/index.php";
-const on = "https://junior-dev-product-list.000webhostapp.com/index.php";
 function App() {
   // Keeps track of the products in the database
   const [products, setProducts] = useState([]);
@@ -21,8 +18,12 @@ function App() {
   // Fetches products from the database
   const fetchProducts = async () => {
     try {
-      const response = await fetch(on, {
+      const response = await fetch("https://productlist-jr.herokuapp.com/index.php", {
         method: "GET",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+          "Access-Control-Allow-Origin": "*",
+        },
       });
       const productsFromCall = await response.json();
 
