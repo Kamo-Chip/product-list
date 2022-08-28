@@ -54,6 +54,7 @@ const Product = ({
       });
       setListOfProductsToDelete(updatedListOfProductsToDelete);
     }
+    console.log(listOfProductsToDelete);
   };
 
   return (
@@ -67,7 +68,7 @@ const Product = ({
       <div>
         <span>{sku}</span>
         <span>{name}</span>
-        <span>{((Number)(price)).toFixed(2)} $</span>
+        <span>{Number(price).toFixed(2)} $</span>
         <span>
           {attribute}: {attribute_value} {getMeasurement()}
         </span>
