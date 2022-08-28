@@ -76,6 +76,8 @@ const ProductList = ({ products, fetchProducts }) => {
     getProducts();
   }, []);
 
+  useEffect(() => {}, [p]);
+
   return (
     <div className="productlist">
       <div className="header">
