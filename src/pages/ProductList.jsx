@@ -6,13 +6,19 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const ProductList = ({ products, fetchProducts }) => {
+const ProductList = ({ setProducts }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
-  const [p, setP] = useState([]);
+
+  //Keeps track of the products that are displayed
+  const [productList, setProductList] = useState([]);
 
   const navigate = useNavigate();
 
+  /**
+   * Fetches products from the database
+   * Updates the products that are displayed
+   */
   const getProducts = async () => {
     try {
       const response = await fetch(
@@ -23,7 +29,13 @@ const ProductList = ({ products, fetchProducts }) => {
       );
 
       const productsFromCall = await response.json();
-      setP(productsFromCall);
+
+      /**
+       * The reason that there are two states that keep track of products is that one is for the entire app and the other is for the product list page.
+       * Having two separate states means that the app does not have to reload when the user deletes a product, thereby creating a fast user experience
+       */
+      setProductList(productsFromCall);
+      setProducts(productsFromCall);
     } catch (err) {
       console.error(err);
     }
@@ -50,33 +62,38 @@ const ProductList = ({ products, fetchProducts }) => {
   const deleteSelectedProducts = async () => {
     let updatedList = [];
 
-    let indices = [];
+    let indicesToSkip = [];
 
+    // Gets the index of where the products to delete are in the product list array and adds them to indicesToSkip
     productsToDelete.forEach((product) => {
-      indices.push(p.indexOf(product));
+      indicesToSkip.push(productList.indexOf(product));
     });
 
-    p.forEach((product, index) => {
-      if (!indices.includes(index)) {
+    /** Adds products to the new product list and skips the index of the products that the user selected to delete
+     *  Thereby only adding products that have not been selected to be deleted
+     */
+    productList.forEach((product, index) => {
+      if (!indicesToSkip.includes(index)) {
         updatedList.push(product);
       }
     });
 
-    setP(updatedList);
+    // Updates the list of products that are displayed on the page
+    setProductList(updatedList);
 
+    // Deletes all the products that were selected to be deleted
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
-    window.location.reload();
   };
 
-  // Fetches products on the first render of the page
+  // Fetches products from the database on the first render of the page
   useEffect(() => {
-    fetchProducts();
     getProducts();
   }, []);
 
-  useEffect(() => {}, [p]);
+  // Re-renders the component when the products are updated (deleted, added)
+  useEffect(() => {}, [productList]);
 
   return (
     <div className="productlist">
@@ -90,13 +107,13 @@ const ProductList = ({ products, fetchProducts }) => {
         </div>
       </div>
       <main>
-        {p.map((product) => (
+        {productList.map((product) => (
           <Product
             key={product.sku}
             productDetails={product}
             setListOfProductsToDelete={setProductsToDelete}
             listOfProductsToDelete={productsToDelete}
-            listOfProducts={products}
+            listOfProducts={productList}
           />
         ))}
       </main>

@@ -1,5 +1,4 @@
-# Scandiweb Junior Developer Task
+# Scandiweb Junior Developer Task (FrontEnd)
 ## Product list application built with:
     - React
-    - PHP
-    - MySQL
+    - SASS

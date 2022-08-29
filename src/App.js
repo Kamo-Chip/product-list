@@ -44,7 +44,7 @@ function App() {
           <Route
             path="/"
             element={
-              <ProductList products={products} fetchProducts={fetchProducts} />
+              <ProductList products={products} setProducts={setProducts} />
             }
           />
           <Route

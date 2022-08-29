@@ -19,12 +19,12 @@ const AddProduct = ({ products }) => {
 
   /**
    * Sets the attributeValue of the productDetails object
-   * The input fields that take the attribute value have class "attribute-value"
+   * The input fields that take the attribute value have a class "attribute-value"
    * Gets an array of the input fields that take the attribute value
    * If the length is greater than 1, then the attribute value consists of multiple values
    * Length would be greater than 1 for instance when the user is inputting data for furniture as it has a height, width, and length
-   * - attributeInputArr would be NodeList(3) [input#height.attribute-value, input#width.attribute-value, input#length.attribute-value]
-   * Whereas length be 1 for instance when the user is inputting data for a DVD as it only has one value - size
+   *  - attributeInputArr would be NodeList(3) [input#height.attribute-value, input#width.attribute-value, input#length.attribute-value]
+   * Whereas length would be equal to 1 for instance when the user is inputting data for a DVD as it only has one value - size
    * - attributeInputArr would be NodeList [input#size.attribute-value]
    */
   const setAttributeValue = () => {
@@ -58,6 +58,7 @@ const AddProduct = ({ products }) => {
 
   /**
    * Handles input validation
+   * There is no need to implement type validation as input types are specified on the input elements which have their own built in type validation
    */
   const isValid = () => {
     let error = "";
@@ -118,7 +119,6 @@ const AddProduct = ({ products }) => {
         <div className="header-btn-container">
           <button onClick={handleSubmit}>Save</button>
           <button onClick={() => navigate("/")}>
-            {/**Returns to the product list page */}
             Cancel
           </button>
         </div>

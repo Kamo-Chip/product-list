@@ -3,7 +3,7 @@
  * Uses handleChange method defined in the AddProduct component to update the state of the product's details
  */
 
-const BookExtendedForm = ({handleChange }) => {
+const BookExtendedForm = ({ handleChange }) => {
   return (
     <>
       <section>

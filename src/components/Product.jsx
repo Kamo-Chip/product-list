@@ -19,9 +19,8 @@ const Product = ({
 
   /**
    * Handles the logic for deleting a product
-   * The selected product is displayed for deletion
    * The parameter "e" is the checkbox that was clicked
-   * Each checkbox has an id corresponding to the product the checkbox is linked to
+   * Each checkbox has an id corresponding to the sku of the product that the checkbox is linked to
    */
 
   const selectProductToDelete = (e) => {
@@ -40,8 +39,8 @@ const Product = ({
     /**
      * If the checkbox is checked and the list of products to delete does not include the selected product
      *  - Add the selected product to the list of products to delete
-     * Else if the checkbox is unchecked and the list of products to delete includes the unselected product
-     *  - Remove the unselected product from the list of products to delete
+     * Else if the checkbox is unchecked and the list of products to delete includes the product
+     *  - Remove the product from the list of products to delete
      */
     if (checked && !listOfProductsToDelete.includes(productToDelete)) {
       setListOfProductsToDelete([...listOfProductsToDelete, productToDelete]);
@@ -54,7 +53,6 @@ const Product = ({
       });
       setListOfProductsToDelete(updatedListOfProductsToDelete);
     }
-    console.log(listOfProductsToDelete);
   };
 
   return (
