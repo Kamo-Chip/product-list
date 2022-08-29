@@ -85,6 +85,7 @@ const ProductList = ({ setProducts }) => {
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
+    window.location.reload();
   };
 
   // Fetches products from the database on the first render of the page
