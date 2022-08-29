@@ -84,7 +84,7 @@ const ProductList = ({ fetchProducts }) => {
   };
 
   /**
-   * Fetches products from the database on the first render of the page
+   * Fetches products from the database on the first render of the page and updates the productList array and the products array in the app component
    * The reason that there are two states that keep track of products is that one is for the entire app and the other is for the product list page.
    * Having two separate states means that the app does not have to reload when the user deletes a product, thereby creating a fast user experience
    */
