@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const ProductList = ({ products, fetchProducts }) => {
+const ProductList = ({fetchProducts, setProducts }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
 
@@ -35,6 +35,7 @@ const ProductList = ({ products, fetchProducts }) => {
        * Having two separate states means that the app does not have to reload when the user deletes a product, thereby creating a fast user experience
        */
       //setProductList(productsFromCall);
+      setProducts(productsFromCall);
       setProductList(productsFromCall);
     } catch (err) {
       console.error(err);
@@ -90,7 +91,7 @@ const ProductList = ({ products, fetchProducts }) => {
 
   // Fetches products from the database on the first render of the page
   useEffect(() => {
-    fetchProducts();
+    //fetchProducts();
     getProducts();
   }, []);
 
