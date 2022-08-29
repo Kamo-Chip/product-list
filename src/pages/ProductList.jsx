@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const ProductList = ({setProducts, fetchProducts }) => {
+const ProductList = ({ setProducts }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
 
@@ -90,7 +90,7 @@ const ProductList = ({setProducts, fetchProducts }) => {
 
   // Fetches products from the database on the first render of the page
   useEffect(() => {
-    fetchProducts();
+    //fetchProducts();
     getProducts();
   }, []);
 
