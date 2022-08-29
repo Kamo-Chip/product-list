@@ -32,7 +32,7 @@ function App() {
     }
   };
 
-  // Fetched products the first time the app is loaded
+  // Fetches products the first time the app is loaded
   useEffect(() => {
     fetchProducts();
   }, []);
