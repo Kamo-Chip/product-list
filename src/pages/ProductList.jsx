@@ -6,21 +6,34 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const ProductList = ({ products, deleteProduct }) => {
+const ProductList = ({ products, deleteProduct, setProducts, getProducts }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
 
   const navigate = useNavigate();
 
-  /**
-   * Deletes all the products that are selected to be deleted
-   */
   const deleteSelectedProducts = async () => {
+    let remainingProducts = [];
+    let indicesOfProductsToSkip = [];
+
+    productsToDelete.forEach((product) => {
+      indicesOfProductsToSkip.push(products.indexOf(product));
+    });
+   
+    products.forEach((product, index) => {
+      if (!indicesOfProductsToSkip.includes(index)) {
+        remainingProducts.push(product);
+      }
+    });
+    
+    // Updates the list of products that are displayed on the page
+    setProducts(remainingProducts);
+    // Deletes all the products that were selected to be deleted
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
-  
-    window.location.reload();
+    
+    await getProducts();
   };
 
   return (
