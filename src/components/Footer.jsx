@@ -4,7 +4,7 @@
 const Footer = () => {
   return (
     <footer className="footer">
-      <small>Scandiweb Test assignment</small>
+      <small>Scandiweb test assignment</small>
     </footer>
   );
 };

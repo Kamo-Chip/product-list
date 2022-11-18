@@ -7,7 +7,7 @@ const Product = ({
   productDetails,
   setListOfProductsToDelete,
   listOfProductsToDelete,
-  listOfProducts,
+  products,
 }) => {
   const { sku, name, price, attribute, attribute_value } = productDetails;
 
@@ -30,7 +30,7 @@ const Product = ({
     /**
      * Checks which product the user selected to delete by comparing the skus of the products in the database with the id of the checkbox (sku of product to delete)
      */
-    listOfProducts.forEach((product) => {
+    products.forEach((product) => {
       if (product.sku == id) {
         productToDelete = product;
       }
@@ -45,12 +45,9 @@ const Product = ({
     if (checked && !listOfProductsToDelete.includes(productToDelete)) {
       setListOfProductsToDelete([...listOfProductsToDelete, productToDelete]);
     } else if (!checked && listOfProductsToDelete.includes(productToDelete)) {
-      let updatedListOfProductsToDelete = [];
-      listOfProductsToDelete.forEach((product) => {
-        if (product.sku != productToDelete.sku) {
-          updatedListOfProductsToDelete.push(product);
-        }
-      });
+      let updatedListOfProductsToDelete = listOfProductsToDelete.filter(
+        (product) => product.sku != productToDelete.sku
+      );
       setListOfProductsToDelete(updatedListOfProductsToDelete);
     }
   };

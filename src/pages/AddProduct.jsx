@@ -5,7 +5,7 @@ import ExtendedForm from "../components/ExtendedForms/ExtendedForm";
 /**
  * Handles the logic of adding a product
  */
-const AddProduct = ({ products }) => {
+const AddProduct = ({products}) => {
   //Stores the product's details
   const [productDetails, setProductDetails] = useState({
     sku: "",
@@ -108,8 +108,10 @@ const AddProduct = ({ products }) => {
       submitProduct();
     }
   };
+  // useEffect(() => {
+  //   getProducts();
+  // }, []);
 
-  //Re-renders component when the productType changes. This is done to dynamically change the form
   useEffect(() => {}, [productDetails.productType]);
 
   return (

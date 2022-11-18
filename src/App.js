@@ -1,10 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProductList from "./pages/ProductList";
-import AddProduct from "./pages/AddProduct";
+import AddProductController from "./controllers/AddProductController";
 import Footer from "./components/Footer";
 import "./styles/styles.css";
-import { useEffect } from "react";
-import { useState } from "react";
+import ProductListController from "./controllers/ProductListController";
 
 /**
  * Container for the whole app
@@ -12,30 +10,6 @@ import { useState } from "react";
  */
 
 function App() {
-  // Keeps track of the products in the database
-  const [products, setProducts] = useState([]);
-
-  // Fetches products from the database
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch(
-        "https://productlist-jr.herokuapp.com/index.php",
-        {
-          method: "GET",
-        }
-      );
-
-      const productsFromCall = await response.json();
-      setProducts(productsFromCall);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  // Fetches products the first time the app is loaded
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   return (
     <div className="App">
@@ -44,13 +18,13 @@ function App() {
           <Route
             path="/"
             element={
-              <ProductList fetchProducts={fetchProducts}/>
+              <ProductListController/>
             }
           />
           <Route
             path="add-product"
             element={
-              <AddProduct setProducts={setProducts} products={products} />
+              <AddProductController/>
             }
           />
         </Routes>
