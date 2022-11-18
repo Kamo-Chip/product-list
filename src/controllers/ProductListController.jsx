@@ -37,7 +37,7 @@ function ProductListController() {
   }, []);
   
   return (
-    <ProductList products = {products} deleteProduct = {deleteProduct} getProducts={getProducts}/>
+    <ProductList products = {products} deleteProduct = {deleteProduct} />
   )
 }
 
