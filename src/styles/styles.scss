@@ -1,7 +1,9 @@
-$buttonColour: #adff2f;
-$buttonText: #000;
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+$buttonColour: #d13e3e;
+$buttonText: #fff;
 $borderRadius: 10px;
-$color1: #000;
+$color1: #101010;
 $color2: rgb(188, 188, 188);
 
 * {
@@ -12,47 +14,50 @@ $color2: rgb(188, 188, 188);
 body {
   margin: 0;
   overflow-x: hidden;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: #f5f5f5;
+  font-family: "Nunito"; 
+  background-color: #fff;
 }
 
 button {
-  padding: 0.5em 1em;
-  height: fit-content;
-  font-size: 1.2rem;
-  width: fit-content;
-  border-radius: $borderRadius;
+  padding: 16px 28px;
+  height: 54px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.375;
+  font-family: "Nunito";
+  cursor: pointer;
+  width: 220px;
+  border-radius: 30px;
   background: $buttonColour;
   color: $buttonText;
-  border: solid #000 2px;
+  border: none;
   transition: all 100ms ease-in;
   &:hover {
-    transform: scale(1.1);
-    background-color: #fff;
-    color: #000;
+    background-color: #e06060
   }
 }
 
 /* Header styling */
 .header {
-  display: grid;
-  grid-template-columns: 3fr auto;
-  border-bottom: solid #000 2px;
-  padding: 0.5em 1em;
-  padding-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1em 2em;
   width: 100vw;
   background-color: $color1;
   color: #fff;
+  h1 {
+    font-size: 40px;
+    margin: 0;
+  }
 }
 
 .header-btn-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-self: right;
+  width: 500px;
   justify-content: space-around;
-  width: calc(100% + 2rem);
 }
 
 /* Productlist page styling */
@@ -67,7 +72,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid #000 1px;
+  border: solid rgba(0, 0, 0, 0.2) 2px;
   width: 100%;
   max-width: 350px;
   justify-self: center;
@@ -118,8 +123,12 @@ button {
     font-size: 1rem;
     padding: 0.5rem;
     margin-left: 1rem;
-    border-radius: $borderRadius;
-    border: solid #000 1px;
+    border-radius: 30px;
+    border: solid rgba(0, 0, 0, 0.2) 2px;
+  }
+  label{
+    font-weight: 600;
+    width: fit-content
   }
 }
 
@@ -127,55 +136,157 @@ button {
 
 .footer {
   position: absolute;
-  height: 50px;
+  height: fit-content;
   width: 100vw;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   padding: 1em;
-  border-top: solid #000 2px;
   background-color: $color1;
   color: #fff;
 }
 
 /* Media queries */
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 2000px){
+  .header {
+    h1 {
+      font-size: 64px;
+    }
+    button {
+      height: 60px;
+      width: 240px;
+      font-size: 20px;
+    }
+  }
+
+  .header-btn-container {
+    width: 600px;
+  }
+
+  .product {
+    height: 350px;
+    width: 400px;
+    max-width: 500px;
+    input {
+      height: 20px;
+      width: 20px;
+    }
+    div {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0;
+      font-size: 32px;
+    }
+  }
+
+  .footer {
+    font-size: 24px;
+  }
+
+  #product_form {
+    max-width: none;
+    width: 800px;
+    label {
+      font-size: 32px;
+    }
+    input, select {
+      font-size: 24px;
+      width: 500px;
+      height: 50px;
+    }
+    section {
+      margin: 1.5em 0;
+    }
+    div {
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 790px){
+  .header {
+    h1 {
+      font-size: 32px;
+    }
+    button {
+      width: 176px;
+      height: 43.2px;
+      padding: 0;
+    }
+  }
+
+  .header-btn-container {
+    width: 400px;
+  }
+
   .productlist main {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 650px){
   .header {
-    padding: 0.5em 0.5em 1em 0.5em;
-  }
-  .productlist main {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1em;
-    padding: 1em;
+    button {
+      width: 123.2px;
+      height: 60px;
+      padding: .5em 1em;
+    }
   }
 
   .header-btn-container {
-    flex-direction: column;
-    align-items: flex-end;
-    width: fit-content;
+    width: 270px;
   }
-
-  button {
-    font-size: 0.9rem;
-    width: 113px;
-  }
-
-  .product {
-    display: flex;
-    flex-direction: column;
-    border: solid #000 2px;
+  .productlist main {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
+@media screen and (max-width: 500px){
+  .header {
+    padding: .5em .8em;
+    button {
+      width: 125px;
+      height: 40px;
+      padding: .5em 1em;
+      font-size: 14px;
+    }
+    h1{
+      display: flex;
+      align-items: center;
+    }
+  }
+  .header-btn-container {
+    flex-direction: column;
+    height: 96px;
+    width: fit-content;
+  }
+
+  .productlist main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 320px){
+  .header {
+    h1{
+      font-size: 30px;
+    }
+    button {
+      width: 110px;
+      height: 40px;
+      font-size: 12px;
+    }
+  }
+  
+  #product_form {
+    input, select {
+      width: 180px; 
+    }
+  }
+}
 /* Miscellaneous*/
 ::-webkit-scrollbar {
   width: 10px;
