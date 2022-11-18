@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Product from "../components/Product";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const ProductList = ({ products, deleteProduct, getProducts}) => {
+const ProductList = ({ products, deleteProduct }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
 
@@ -16,15 +16,12 @@ const ProductList = ({ products, deleteProduct, getProducts}) => {
    * Deletes all the products that are selected to be deleted
    */
   const deleteSelectedProducts = async () => {
-    // Deletes all the products that were selected to be deleted
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
-
-    await getProducts();
+  
+    window.location.reload();
   };
-
-  useEffect(() => {}, [products]);
 
   return (
     <div className="productlist">
