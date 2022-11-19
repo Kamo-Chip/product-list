@@ -13,7 +13,7 @@ const ProductList = ({ products, deleteProduct, setProducts }) => {
   const navigate = useNavigate();
 
   const deleteSelectedProducts = async () => {
-    let updatedList = [];
+    let remainingProducts = [];
 
     let indicesToSkip = [];
 
@@ -27,17 +27,18 @@ const ProductList = ({ products, deleteProduct, setProducts }) => {
      */
     products.forEach((product, index) => {
       if (!indicesToSkip.includes(index)) {
-        updatedList.push(product);
+        remainingProducts.push(product);
       }
     });
 
     // Updates the list of products that are displayed on the page
-    setProducts(updatedList);
+    setProducts(remainingProducts);
 
     // Deletes all the products that were selected to be deleted
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
+
     window.location.reload();
   };
 

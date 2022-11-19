@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ProductList from "../pages/ProductList";
 
+/**
+ * Handles communication with backend
+ * Passes data to ProductList components
+ */
 function ProductListController() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); //Stores the products in the database
 
+  /**
+   * Fetches products from the database and updates the state
+   */
   const getProducts = async () => {
     try {
       const response = await fetch(
@@ -20,6 +27,9 @@ function ProductListController() {
     }
   };
 
+  /**
+   * Deletes the product passed in as a parameter
+   */
   const deleteProduct = async (product) => {
     try {
       await fetch("https://productlist-jr.herokuapp.com/index.php", {
@@ -35,10 +45,14 @@ function ProductListController() {
   useEffect(() => {
     getProducts();
   }, []);
-  
+
   return (
-    <ProductList products = {products} deleteProduct = {deleteProduct} setProducts={setProducts}/>
-  )
+    <ProductList
+      products={products}
+      deleteProduct={deleteProduct}
+      setProducts={setProducts}
+    />
+  );
 }
 
 export default ProductListController;

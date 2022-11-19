@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import AddProduct from "../pages/AddProduct";
 
+/**
+ * Handles communication with backend
+ * Passes data to AddProduct component
+ */
 function AddProductController() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); //Stores the products in the database
 
+  /**
+   * Fetches products from the database and updates the state
+   */
   const getProducts = async () => {
     try {
       const response = await fetch(

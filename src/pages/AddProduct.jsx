@@ -108,9 +108,6 @@ const AddProduct = ({products}) => {
       submitProduct();
     }
   };
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
 
   useEffect(() => {}, [productDetails.productType]);
 
