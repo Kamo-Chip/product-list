@@ -13,25 +13,32 @@ const ProductList = ({ products, deleteProduct, setProducts }) => {
   const navigate = useNavigate();
 
   const deleteSelectedProducts = async () => {
-    let remainingProducts = [];
-    let indicesOfProductsToSkip = [];
+    let updatedList = [];
 
+    let indicesToSkip = [];
+
+    // Gets the index of where the products to delete are in the product list array and adds them to indicesToSkip
     productsToDelete.forEach((product) => {
-      indicesOfProductsToSkip.push(products.indexOf(product));
+      indicesToSkip.push(products.indexOf(product));
     });
-   
+
+    /** Adds products to the new product list and skips the index of the products that the user selected to delete
+     *  Thereby only adding products that have not been selected to be deleted
+     */
     products.forEach((product, index) => {
-      if (!indicesOfProductsToSkip.includes(index)) {
-        remainingProducts.push(product);
+      if (!indicesToSkip.includes(index)) {
+        updatedList.push(product);
       }
     });
 
     // Updates the list of products that are displayed on the page
-    setProducts(remainingProducts);
+    setProducts(updatedList);
+
     // Deletes all the products that were selected to be deleted
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
+    window.location.reload();
   };
 
   return (
