@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
  * Handles the logic of displaying a product
  */
 
-const ProductList = ({ products, deleteProduct, setProducts, getProducts }) => {
+const ProductList = ({ products, deleteProduct, setProducts }) => {
   //Keeps track of which products are selected to be deleted
   const [productsToDelete, setProductsToDelete] = useState([]);
 
@@ -25,15 +25,13 @@ const ProductList = ({ products, deleteProduct, setProducts, getProducts }) => {
         remainingProducts.push(product);
       }
     });
-    
+
     // Updates the list of products that are displayed on the page
     setProducts(remainingProducts);
     // Deletes all the products that were selected to be deleted
     for (let product of productsToDelete) {
       await deleteProduct(product);
     }
-    
-    await getProducts();
   };
 
   return (
